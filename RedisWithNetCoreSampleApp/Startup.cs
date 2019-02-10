@@ -29,16 +29,9 @@ namespace RedisWithNetCoreSampleApp
         {
             services.AddMvc();
 
-            services.AddDistributedRedisCache(option =>
-            {
-                option.Configuration = "localhost:6379";
-                option.InstanceName = "master";
-            });
-
             string redisConnectionStr= Configuration.GetConnectionString("RedisConnStr");
 
             services.AddScoped<IRedisConnector, RedisConnector>(_ => new RedisConnector(redisConnectionStr));
-            //services.AddScoped<IRedisCacheRepository<User>, UserCacheRepo>();
             services.AddScoped<IUserCrudRepository, UserCacheRepo>();
         }
 

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    entrypoint: redis-server --appendonly yes
+    restart: always
+  netcore-redisapp:
+    container_name: netcore-redisapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "44444:80"  
+    links:
+      - redis        
